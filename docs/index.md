@@ -30,7 +30,7 @@ library(tmaptools)
 library(tidyverse)
 # Package for spatial autocorrelation
 library(spdep)
-# Pakcage for geographically weighted regression
+# Package for geographically weighted regression
 library(spgwr)
 ```
 
@@ -69,7 +69,7 @@ nb <- poly2nb(Illinois, queen=TRUE)
 ```
 
 
-The returned object is a litst with 102 items, which means it labels neighbors for each county. For example, for the first county, county number 29 and 53 are its neighbors. To figure out the name for that county, we can simply use this index to track back their name. So for Lake county, the neighbors are Cook and McHenry county. 
+The returned object is a list with 102 items, which means it labels neighbors for each county. For example, for the first county, county number 29 and 53 are its neighbors. To figure out the name for that county, we can simply use this index to track back their name. So for Lake county, the neighbors are Cook and McHenry county. 
 
 
 ```r
@@ -78,15 +78,15 @@ Illinois$NAME[c(1,29,53)]
 ```
 
 
-Next we need to figure out weights to each neighboring polygons. Here we will use the basic binary form (`style="B"`) to label the neighbors: 0 weight for non-neighoring polygon, and 1 weight for neighboring polygon. 
+Next we need to figure out weights to each neighboring polygons. Here we will use the basic binary form (`style="B"`) to label the neighbors: 0 weight for non-neighboring polygon, and 1 weight for neighboring polygon. 
 The function is `nb2listw`. Here style can take values “W”, “B”, “C”, “U”, and “S”, where:
 
-Code|Desctiption
+Code|Description
 -------|---------
-W|Row standardised (sums over all links to n)
-C|Globally standardised (sums over all links to n)
+W|Row standardized (sums over all links to n)
+C|Globally standardized (sums over all links to n)
 B|Basic binary coding
-U|Equal to C divided by the number of neighbours (sums over all links to unity)
+U|Equal to C divided by the number of neighbors (sums over all links to unity)
 S|Variance-stabilizing coding scheme
 
 We set `zero.policy=TRUE` option to allow list of non-neighbors. You can use `?nb2listw` for more information. 
@@ -104,7 +104,7 @@ lw$weights[1]
 ```
 
 
-We can further compute the average neighbor popultion value for each county.  These average values are named **spatially lagged** values.
+We can further compute the average neighbor population value for each county.  These average values are named **spatially lagged** values.
 
 ```r
 lag_pop <- lag.listw(lw, Illinois$POP2000)
@@ -188,7 +188,7 @@ Illinois <- Illinois %>% mutate(
 ### Conclusion for the local model:
 
 Let's create a map to see how these groups distributed. Here we color each polygon by the group called "quad_sig"
-So only counties around cook county are labled as High-High group. That means these counties have high population, and also surrounded by counties with high population value. There is no significant relationship found in other counties.  
+So only counties around cook county are labeled as High-High group. That means these counties have high population, and also surrounded by counties with high population value. There is no significant relationship found in other counties.  
 
 
 ```r
@@ -200,7 +200,7 @@ tm_shape(Illinois) + tm_polygons(col = "quad_sig") +
 
 ## 3. GWR-Examine Income and educational level in Illinois
 
-Now let's move to GWR functions in R. We are interested to see if there is a positive relatioinship between houshold income and educational level. We assume that for each county, if more people holding a Bachelor's degree, the median household income should be higher too. We will derectly use census API in R to get the dataset for entire Illinois at county level. 
+Now let's move to GWR functions in R. We are interested to see if there is a positive relationship between household income and educational level. We assume that for each county, if more people holding a Bachelor's degree, the median household income should be higher too. We will derectly use census API in R to get the dataset for entire Illinois at county level. 
 
 
 ### 3.1 Get data ready from census api
@@ -235,7 +235,7 @@ Illinois_2017<-get_acs(geography = "county",
               output="wide", geometry=T)
 ```
 
-Take a look at the dataset, it has 102 rows and 9 variables. GEOID is the five number code to represent each county uniquely; NAME represent the name of the county. geometry is the list-column for spatial information. You get two columns for each variable: the one end with "E" estimation of the variable, we will analysis estimation for this lab. The one end with "M" represents margin of error. Margins of error is an indicator of the reliability of the estimate, with upper- and lower-bound of a range provded. Here we just drop of Margins of error to simply analysis estimations. We save the clean dataset as "Illinois_2017_clean". Note it should still include the spatial component. 
+Take a look at the dataset, it has 102 rows and 9 variables. GEOID is the five number code to represent each county uniquely; NAME represent the name of the county. geometry is the list-column for spatial information. You get two columns for each variable: the one end with "E" estimation of the variable, we will analysis estimation for this lab. The one end with "M" represents margin of error. Margins of error is an indicator of the reliability of the estimate, with upper- and lower-bound of a range provided. Here we just drop of Margins of error to simply analysis estimations. We save the clean dataset as "Illinois_2017_clean". Note it should still include the spatial component. 
 
 
 ```r
@@ -311,7 +311,7 @@ Here are more information about sp objects. It is the first (sf package are more
 # convert simple feature as sp objects. Attributes are preserved, just the data type is changed 
 Illinois_sp_from_sf <- as(Illinois_2017_clean, Class="Spatial")
 
-# Select the best bandwith using gwr.sel. The returned value is the best bandwith for the model
+# Select the best bandwidth using gwr.sel. The returned value is the best bandwidth for the model
 gwr.sel(med_incomeE~BacE, data = Illinois_sp_from_sf)
 ```
 
@@ -360,7 +360,7 @@ After we done with the GWR functions, let's convert the needed results (SDF) bac
 
 6) localR2: R-square for this local regression
 
-7) The rest columns ended with `se` are variables evaluting the standard errors. 
+7) The rest columns ended with `se` are variables evaluating the standard errors. 
 
 
 ```r
@@ -398,7 +398,7 @@ tm_shape(Illinois_2017_clean) + tm_polygons(style="jenks",col = "pred_gwr") +
 
 You can check out the maps visually: 
 
-1) For coefficient: the impact of educational level is not constant in space toward income. For example, high positive coefficient is found Alexander county: that means more people get bachelor's degree in that region, the median househould income also tends to increase in Alexander. 
+1) For coefficient: the impact of educational level is not constant in space toward income. For example, high positive coefficient is found Alexander county: that means more people get bachelor's degree in that region, the median household income also tends to increase in Alexander. 
 
 On the other hand, negative coefficient is found in Clark county, where more people get bachelor's degree in that region, the median household income tends to decrease in Clark.  
 
