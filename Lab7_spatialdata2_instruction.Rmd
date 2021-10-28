@@ -33,6 +33,13 @@ library(spdep)
 library(spgwr)
 ```
 
+```{r echo=F}
+
+xfun::embed_file('data.zip')
+
+
+```
+
 In this lab, we will introduce how to conduct sptial autocorrelation and geographically weighted regression in R.  For more information about spatial dataset in R, click [*here*](https://maczokni.github.io/crimemapping_textbook_bookdown/global-and-local-spatial-autocorrelation.html). 
 
 ## 1. Spatial autocorrelation: population in Illinois at county level (global model)
