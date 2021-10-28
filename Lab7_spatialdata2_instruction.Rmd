@@ -298,7 +298,7 @@ Since we found the inefficiency of the simple linear model predicting median hou
 
 We will use the `gwr` function for a GWR model, and `gwr.sel` to select the best bandwith. Note these functions from the `spgwr` package do not accept sf (simple feature) objects. So first we need to convert these simple features into sp object for GWR functions, then we can convert them back as sf objects for maps. 
 
-Here are more information about sp objects. It is the first (sf package are more recently developed.) general type for spatial data (vectors) that was developed in R. The foundational structure for a sp object is the Spatial class: It includes two parts:a bounding box and coordiante system. Click [here](https://cengel.github.io/R-spatial/intro.html) for more information for sp object.  
+Here are more information about sp objects. It is the first (sf package are more recently developed.) general type for spatial data (vectors) that was developed in R. The foundation structure for a sp object is the Spatial class: It includes two parts:a bounding box and coordinate system. Click [here](https://cengel.github.io/R-spatial/intro.html) for more information for sp object.  
 
 
 
