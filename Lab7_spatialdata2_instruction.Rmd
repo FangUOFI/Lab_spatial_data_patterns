@@ -426,6 +426,81 @@ Here is a preview of thegwr_IL
 
 Based on the results above, we get a much higher R-square value using GWR to predict median household income. So the impact of educational level are not constant throughout the state. We further address the spatial heterogeneity in educational level and and its effect on median household income. 
 
+# Your turn
+
+## Question 1 (5 points)
+
+Based on our results using queen method to identify neighbors, what are the neighbor counties for Champaign? Hint: you can use which function to identify the index for Champaign county. 
+```{r }
+
+```
+
+Answer: 
+
+## Question 2 (5 points)
+
+Create a choropleth map for population in 2010. Is there any pattern for the population in 2010 by visual check? 
+
+```{r }
+
+
+```
+
+
+
+## Question 3 (5 points)
+
+Conduct a global model for Moran's I test for population in 2010. What is the p-value and Moran I statistic? (2 points)  What conclusions can you get for population in 2010? (3 points)
+
+```{r}
+
+```
+
+
+Answer: 
+
+## Question 4 (10 points)
+
+Conduct a local model for Moran's I test for population in 2010.What is the p-value and Moran I statistic for Champaign? (3 points) Is population statistically significant for Champaign compared with its neighbors? (3 points)
+Create another choropleth map to show the 4 groups of cluster: HH, LL, HL and LH. Which counties are labeled as HH? What conclusions can you get for population in 2010? (4 points)
+
+
+```{r }
+
+```
+
+Answer: 
+
+
+## Question 5 (25 points)
+
+Now let's create multiple linear regression to predict median household income (response variable) in Illinois in 2017. The explanatory variables are: 1) population with Bachelor's degree (BacE); 2) Total population(PopE). You can continue to use the dataset we downloaded from the census in previous section. 
+
+1) Conduct a multiple linear regression use `lm` function to predict median household income, where the explanatory variables are: 1) population with Bachelor's degree (BacE); 2) Total population(PopE). Report R-square of the model, and a map showing the residuals (in +/- groups). Based on the map, do you think the residuals are randomly distributed (5 points)
+
+
+Answer: 
+
+
+2) Use a global model to test if the residuals from previous question are randomly distributed? (5 points)
+
+Answer:
+
+
+3) Conduct a GWR model to predict median househould income, where the explanatory variables are: 1) population with Bachelor's degree (BacE); 2) Total population(PopE). 
+
+What is the R-square for this GWR model? (5 points)
+
+Answer: 
+```{r}
+
+```
+Map out coefficients for both explanatory variables separately. Interpret the result of GWR model especially the impact (positive or negative?) of both educational level and total population toward median household income spatially. (10 points)
+
+
+
+
+
 
 
 
